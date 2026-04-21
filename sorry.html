@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Quiet Apology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Garamond&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Warna background abu-abu kebiruan yang pudar/sedih */
+            background-color: #ECEFF1; 
+            font-family: 'Garamond', serif; /* Font klasik yang serius */
+            text-align: center;
+            color: #455A64;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Efek pudar saat halaman baru dimuat */
+            animation: fadeInPage 2s ease-in;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8); /* Putih transparan */
+            border: 2px solid #B0BEC5; /* Border abu-abu tipis */
+            border-radius: 15px;
+            padding: 40px 20px;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* Shadow tipis */
+        }
+
+        .pooh-img {
+            /* Sketsa klasik Pooh yang warnanya pudar/sedih */
+            width: 130px;
+            margin-bottom: 25px;
+            opacity: 0.8; /* Sedikit transparan */
+            filter: sepia(30%); /* Efek jadul/sedih */
+        }
+
+        h1 {
+            color: #546E7A;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p.apology-text {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        p.sig {
+            font-family: 'Shadows Into Light', cursive; /* Font tulisan tangan */
+            font-size: 20px;
+            margin-top: 10px;
+            color: #263238;
+        }
+
+        #quote-display {
+            font-style: italic;
+            margin-top: 20px;
+            color: #78909C;
+            min-height: 40px;
+            transition: opacity 0.5s;
+        }
+
+        .btn-sad {
+            background: none;
+            border: none;
+            color: #78909C;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .btn-sad:hover {
+            color: #546E7A;
+        }
+        .btn-back {
+            background: none;
+            border: none;
+            color: #78909C;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* Animasi pudar halaman */
+        @keyframes fadeInPage {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYo-hY0jM9EzpT4CWvzBcFGv6ZNHjLMRogU2zTzSJg1A&s=10" class="pooh-img" alt="Sad Pooh Sketch">
+        
+        <h1>Feeling a bit blue...</h1>
+        
+        <p class="apology-text">
+            "A day without you is like a pot without a single drop of honey left inside."<br><br>
+            The Hundred Acre Wood feels very empty when you're upset. I was a Bear of Very Little Brain, and I'm really sorry.
+        </p>
+
+        <p class="sig">- Aku.</p>
+
+        <div id="quote-display"></div>
+        <button class="btn-sad" onclick="generateSadQuote()">Minta Madu Damai?</button>
+        <br>
+        <button class="btn-back" onclick="window.location.href='Main Pages.html'">Back</button>
+    </div>
+
+    <script>
+        // Kumpulan kutipan Winnie the Pooh yang melankolis dan menyentuh
+        const poohSadQuotes = [
+            "If there ever comes a day when we can't be together, keep me in your heart.",
+            "I wish you were here to taste this honey... it's not the same without you.",
+            "How lucky I am to have something that makes saying goodbye so hard.",
+            "I'm a bear of very little brain, and long words bother me. I just want to say 'sorry'.",
+            "It is so much more friendly with two."
+        ];
+
+        function generateSadQuote() {
+            const display = document.getElementById('quote-display');
+            display.style.opacity = 0;
+
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * poohSadQuotes.length);
+                display.innerText = `"${poohSadQuotes[randomIndex]}"`;
+                display.style.opacity = 1;
+            }, 300);
+        }
+
+        // Tampilkan quote pertama pas halaman dibuka
+        window.onload = generateSadQuote;
+    </script>
+</body>
+</html>

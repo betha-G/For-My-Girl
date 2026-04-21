@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pooh's Surprise!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        /* 1. Efek Fade-In buat seluruh halaman */
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background-color: #FFF9C4;
+            font-family: 'Varela Round', sans-serif;
+            text-align: center;
+            color: #5D4037;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Pasang animasinya di sini */
+            animation: fadeInPage 1.5s ease-out;
+        }
+
+        .container {
+            background: white;
+            border: 8px solid #FFD700;
+            border-radius: 30px;
+            padding: 40px 20px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .pooh-img {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #ED1C24;
+            margin-bottom: 20px;
+        }
+
+        #quote-box {
+            min-height: 100px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #FFFDE7;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. Efek Fade buat teks kutipan */
+        #quote-display {
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out; /* Transisi halus */
+        }
+
+        .btn {
+            background: #FFD700;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 4px 0 #FBC02D;
+        }
+
+        .btn:hover {
+            background: #FBC02D;
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .nxtbtn {
+            background: #78909C;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            color: #Ffffff;
+            box-shadow: 0 4px 0 #1c2e4a;
+        }
+               .nxtbtn:hover {
+            background: #789999;
+            transform: scale(1.05);
+        }
+
+        .nxtbtn:active {
+            transform: scale(0.95);
+        }
+                .bee {
+            position: absolute;
+            font-size: 24px;
+            top: 130px;
+            right: 20px;
+            animation: fly 3s infinite ease-in-out;
+        }
+
+        @keyframes fly {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-10px, -10px); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <div class="bee"></div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTSnoqm6i_dzRNfLjG6ppyw7MQtGkhgdElf1Rf9OdgaA&s=10" class="pooh-img">
+        
+        <h1>Hunny for My Honey</h1>
+        
+        <div id="quote-box">
+            <p id="quote-display">Memuat madu paling manis...</p>
+        </div>
+
+        <button class="btn" onclick="changeQuote()">Ambil Madu Baru</button>
+        <br><br>
+        <button class="nxtbtn" onclick="window.location.href='sorry.html'">if I made a mistake</button>
+    </div>
+
+    <script>
+        const poohQuotes = [
+            "Any day spent with you is my favorite day.",
+            "Sometimes the smallest things take up the most room in your heart.",
+            "How lucky I am to have something that makes saying goodbye so hard.",
+            "You are braver than you believe and stronger than you seem.",
+            "A day without a friend is like a pot without honey.",
+            "If you live to be a hundred, I want to live to be a hundred minus one day."
+        ];
+
+        function changeQuote() {
+            const display = document.getElementById('quote-display');
+            
+            // Step 1: Bikin teks jadi transparan (Fade Out)
+            display.style.opacity = 0;
+
+            // Step 2: Tunggu sebentar (0.5 detik), ganti teks, baru munculin lagi (Fade In)
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * poohQuotes.length);
+                display.innerText = `"${poohQuotes[randomIndex]}"`;
+                display.style.opacity = 1;
+            }, 500);
+        }
+
+    </script>
+</body>
+</html>
