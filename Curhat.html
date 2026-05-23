@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pooh's Hunny Pot 🍯</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #FFFDF0; /* Warna krem hangat khas estetik Pooh */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Mencegah text di-highlight/block biar gak gampang di-copy */
+            user-select: none; 
+        }
+        /* Container Utama */
+        .container {
+            background: #FFFFFF;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(255, 200, 59, 0.2);
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            border: 3px solid #FFC83B; /* Border Kuning Pooh */
+            position: relative;
+        }
+        /* Ornaments Pot Madu Minimalis */
+        .hunny-pot {
+            width: 60px;
+            height: 55px;
+            background: #D47A2A;
+            border-radius: 15px 15px 25px 25px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            border: 2px solid #5C320C;
+        }
+        .hunny-pot::before {
+            content: 'HUNNY';
+            position: absolute;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .hunny-pot::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background: #B56219;
+            border: 2px solid #5C320C;
+            border-radius: 10px;
+            top: -6px;
+            left: 3px;
+        }
+        h2 {
+            color: #5C320C; /* Warna cokelat tua */
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+        p {
+            color: #7A6F5D;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        /* Wrapper Input & Eye Icon */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 18px;
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 14px 45px 14px 14px;
+            border: 2px solid #FFEAA7;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            background-color: #FFFBF0;
+            color: #5C320C;
+        }
+        input:focus {
+            border-color: #FFC83B;
+            background-color: #FFF;
+            box-shadow: 0 0 8px rgba(255, 200, 59, 0.4);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #7A6F5D;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        button.btn-submit {
+            background-color: #FF4B4B; /* Merah baju Pooh */
+            color: white;
+            border: 2px solid #D62828;
+            padding: 14px 24px;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 #D62828;
+        }
+        button.btn-submit:hover {
+            background-color: #E63939;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #D62828;
+        }
+        button.btn-submit:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* STYLING POP-UP 2-STEP VERIFICATION */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(92, 50, 12, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            max-width: 340px;
+            width: 85%;
+            text-align: center;
+            border: 3px solid #FFC83B;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+        .overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal h3 {
+            color: #5C320C;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .modal p {
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-modal {
+            flex: 1;
+            padding: 12px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-cancel {
+            background-color: #F0EDE4;
+            color: #7A6F5D;
+            border: 2px solid #D1C9BA;
+        }
+        .btn-cancel:hover {
+            background-color: #E2DDD2;
+        }
+        .btn-confirm {
+            background-color: #FFC83B;
+            color: #5C320C;
+            border: 2px solid #DDA213;
+        }
+        .btn-confirm:hover {
+            background-color: #FBBA1A;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hunny-pot"></div>
+    
+    <h2>Betha's Secret Message 🍯</h2>
+    <p>"Think, think, think..." <br>Buka kalau kamu udah bener-bener luang dan siap buat baca yaa sayang akuu <br>Take your time imwuuppp</p>
+    
+    <div class="password-wrapper">
+        <input type="password" id="passwordInput" placeholder="Masukkan password rahasia...">
+        <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" id="toggleIcon">👀</button>
+    </div>
+    
+    <button class="btn-submit" onclick="checkPassword()">Buka Pot Madu</button>
+</div>
+
+<!-- CONTAINER POP-UP 2-STEP VERIFICATION -->
+<div class="overlay" id="verificationModal">
+    <div class="modal">
+        <h3>Are you really ready? 🐻</h3>
+        <p>Password-nya bener! Tapi... Ceil udah beneran siap kann?? <br>kalo udah baca jangan marah yaa imwupp, maaf jugaa kalo ada pemilihan kata yang salah Hope you're not mad yaaa<br>kaloo imwupp udah siap langsung sajaa klik "Lanjut Buka"</p>
+        <div class="modal-buttons">
+            <button class="btn-modal btn-cancel" onclick="closeModal()">Nanti Aja</button>
+            <button class="btn-modal btn-confirm" onclick="redirectToGDocs()">Lanjut Buka</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('passwordInput');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.textContent = '🙈';
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.textContent = '👀';
+        }
+    }
+
+    function checkPassword() {
+        const input = document.getElementById('passwordInput').value;
+        
+        const encryptedPassword = "SWJleVNheWFuZ0NlaWw="; 
+
+        if (btoa(input) === encryptedPassword) {
+            document.getElementById('verificationModal').classList.add('active');
+        } else {
+            alert("yaahhh, password-nya salah sayaanggg... Coba inget-inget terus cek lagi kata kuncinya yaa sayangg 🍯🐻");
+            document.getElementById('passwordInput').value = "";
+            resetEyeIcon();
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('verificationModal').classList.remove('active');
+        document.getElementById('passwordInput').value = "";
+        resetEyeIcon();
+    }
+
+    function redirectToGDocs() {
+        const encryptedLink = "aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xaHRQenV2YUpuRGNlSnROUWV3WW1ER0lsSnU0dmdjejY5eVZ0SU41XzhhRS9lZGl0P3VzcD1zaGFyaW5n"; 
+        window.location.href = atob(encryptedLink);
+    }
+
+    function resetEyeIcon() {
+        const passwordInput = document.getElementById('passwordInput');
+        const toggleIcon = document.getElementById('toggleIcon');
+         passwordInput.type = 'password';
+        toggleIcon.textContent = '👀';
+    }
+
+    document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    });
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.key === "F12" ||
+            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+            (e.ctrlKey && e.key === "U")||
+            (e.ctrlKey && e.key === "Q")
+        ){
+            e.preventDefault();
+        }
+        
+    });
+</script>
+
+</body>
+</html>
