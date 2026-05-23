@@ -6,7 +6,6 @@
     <title>Kado buat ceil</title>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <style>
-        /* 1. Efek Fade-In buat seluruh halaman */
         @keyframes fadeInPage {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -57,7 +56,6 @@
             justify-content: center;
         }
 
-        /* 2. Efek Fade buat teks kutipan */
         #quote-display {
             font-style: italic;
             font-size: 18px;
@@ -133,6 +131,7 @@
         <button class="btn" onclick="changeQuote()">Ambil Madu Baru</button>
         <br><br>
         <button class="nxtbtn" onclick="window.location.href='sorry.html'">if I made a mistake</button>
+        <button class="nxtbtn" onclick="window.location.href='Curhat.html'">Secret Masssage</button>
     </div>
 
     <script>
@@ -148,10 +147,8 @@
         function changeQuote() {
             const display = document.getElementById('quote-display');
             
-            // Step 1: Bikin teks jadi transparan (Fade Out)
             display.style.opacity = 0;
 
-            // Step 2: Tunggu sebentar (0.5 detik), ganti teks, baru munculin lagi (Fade In)
             setTimeout(() => {
                 const randomIndex = Math.floor(Math.random() * poohQuotes.length);
                 display.innerText = `"${poohQuotes[randomIndex]}"`;
